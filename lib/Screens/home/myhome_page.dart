@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moneybook/Screens/Catogeries/catogeries.dart';
 import 'package:moneybook/Screens/Transactions/transaction_page.dart';
 import 'package:moneybook/Screens/home/Widgets/Bottom_navigation.dart';
+import 'package:moneybook/Screens/home/wallet_box.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -22,13 +23,19 @@ class MyHomePage extends StatelessWidget {
         ),
         backgroundColor: Colors.black,
         bottomNavigationBar: const MoneyBookBottomNavigation(),
-        body: SafeArea(
-            child: ValueListenableBuilder(
-                valueListenable:
-                    MoneyBookBottomNavigation.selectedIndexNotifier,
-                builder: (BuildContext ctx, int updatedIndex, _) {
-                  return _page[updatedIndex];
-                })),
+        body: Column(
+          children: [
+            const WalletBox(),
+            Expanded(
+              child: ValueListenableBuilder(
+                  valueListenable:
+                      MoneyBookBottomNavigation.selectedIndexNotifier,
+                  builder: (BuildContext ctx, int updatedIndex, _) {
+                    return _page[updatedIndex];
+                  }),
+            ),
+          ],
+        ),
         floatingActionButton: Padding(
           padding:
               EdgeInsets.only(right: MediaQuery.of(context).size.width * .38),
